@@ -18,7 +18,7 @@ function App() {
     let todolistId1 = v1();
     let todolistId2 = v1();
 
-    let [todolists, setTodolists] = useState<Array<TodoListsType>>([
+    let [todoLists, setTodoLists] = useState<Array<TodoListsType>>([
         {id: todolistId1, title: "What to learn"},
         {id: todolistId2, title: "What to buy"}
     ])
@@ -41,7 +41,7 @@ function App() {
     });
 
     const removeTodolist = (todolistId: string) => {
-        setTodolists(todolists.filter(el => el.id !== todolistId))
+        setTodoLists(todoLists.filter(el => el.id !== todolistId))
         delete tasks[todolistId]
     }
 
@@ -74,7 +74,7 @@ function App() {
 
     return (
         <div className="App">
-            {todolists.map((el) => {
+            {todoLists.map((el) => {
                 let tasksForTodolist = tasks[el.id].data;
                 if (tasks[el.id].filter === "active") {
                     tasksForTodolist = tasks[el.id].data.filter(t => t.isDone === false);
