@@ -9,7 +9,7 @@ type TasksType = {
     [key: string]: EntranceType
 }
 
-type EntranceType  = {
+type EntranceType = {
     data: TaskType[]
     filter: FilterValuesType
 }
@@ -74,19 +74,25 @@ function App() {
 
 
     function removeTask(todolistId: string, taskId: string) {
-        setTasks({...tasks, [todolistId]: {...tasks[todolistId], data: tasks[todolistId].data.filter(t => t.id !== taskId)}})
+        setTasks({
+            ...tasks,
+            [todolistId]: {...tasks[todolistId], data: tasks[todolistId].data.filter(t => t.id !== taskId)}
+        })
     }
 
     function addTask(todolistId: string, title: string) {
         let newTask = {id: v1(), title: title, isDone: false};
-        setTasks({...tasks, [todolistId]: {...tasks[todolistId], data: [newTask, ...tasks[todolistId].data] } })
+        setTasks({...tasks, [todolistId]: {...tasks[todolistId], data: tasks[todolistId].data}})
     }
 
     function changeStatus(todolistId: string, taskId: string, newIsDone: boolean) {
-        // setTasks({
-        //     ...tasks,
-        //     [todolistId]: tasks[todolistId].map(el => el.id === taskId ? {...el, isDone: newIsDone} : el)
-        // })
+        setTasks({
+            ...tasks,
+            [todolistId]: {
+                ...tasks[todolistId],
+                data: [...tasks[todolistId].data.map(t => t.id === taskId ? {...t, isDone: newIsDone} : t)]
+            }
+        })
     }
 
     function changeFilter(todolistId: string, value: FilterValuesType) {
